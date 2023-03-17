@@ -4,7 +4,6 @@ description: build android for a specific arch
 
 inputs:
   arch:
-    description: arch to build
     required: true
   arch-for-build-env:
     description: |
@@ -36,7 +35,6 @@ runs:
       id: build
       shell: bash
       env:
-        BRANCH: ${{ inputs.branch }}
         BUILD_ENVIRONMENT: pytorch-linux-xenial-py3-clang5-android-ndk-r19c-${{ inputs.arch-for-build-env }}-build"
         AWS_DEFAULT_REGION: us-east-1
         PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -63,7 +61,6 @@ runs:
           --tty \
           --detach \
           --user jenkins \
-          -w /var/lib/jenkins/workspace \
           "${DOCKER_IMAGE}"
         )
         git submodule sync && git submodule update -q --init --recursive --depth 1
